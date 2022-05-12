@@ -19,7 +19,8 @@ function setNumbersRaffleViewer() {
       : "Nenhum Sorteado";
 }
 
-raffleButton.addEventListener("click", () => {
+raffleButton.addEventListener("click", (e) => {
+  raffleButton.disabled = true;
   const number = document.getElementById("number");
   const numberGenerate = document.getElementById("numberGenerate");
   const lottie = document
@@ -55,7 +56,9 @@ raffleButton.addEventListener("click", () => {
     setTimeout(function () {
       numberGenerate.appendChild(confetes);
     }, 200);
+    raffleButton.disabled = false;
   }, 6000);
+
   confetesNode.remove();
 });
 
