@@ -64,9 +64,9 @@ raffleButton.addEventListener("click", (e) => {
 
 function generateRandom(exceptList) {
   var numbersRaffle = JSON.parse("[" + exceptList.toString() + "]");
-  var numberRaffle = Math.floor(Math.random() * 700) + 1;
+  var numberRaffle = Math.floor(Math.random() * 75) + 1;
   while (numbersRaffle.includes(numberRaffle)) {
-    numberRaffle = Math.floor(Math.random() * 700) + 1;
+    numberRaffle = Math.floor(Math.random() * 75) + 1;
   }
   return numberRaffle;
 }
