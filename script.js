@@ -13,9 +13,9 @@ function setNumbersRaffleViewer() {
   numbersRaffleViewer.innerText =
     localStorage.getItem("numbersRaffle") != null
       ? "Sorteados: " +
-        JSON.parse(
-          "[" + localStorage.getItem("numbersRaffle").toString() + "]"
-        ).slice(1)
+      JSON.parse(
+        "[" + localStorage.getItem("numbersRaffle").toString() + "]"
+      ).slice(1)
       : "Nenhum Sorteado";
 }
 
@@ -64,9 +64,9 @@ raffleButton.addEventListener("click", (e) => {
 
 function generateRandom(exceptList) {
   var numbersRaffle = JSON.parse("[" + exceptList.toString() + "]");
-  var numberRaffle = Math.floor(Math.random() * 6000) + 1;
+  var numberRaffle = Math.floor(Math.random() * 8000) + 1;
   while (numbersRaffle.includes(numberRaffle)) {
-    numberRaffle = Math.floor(Math.random() * 6000) + 1;
+    numberRaffle = Math.floor(Math.random() * 8000) + 1;
   }
   return numberRaffle;
 }
