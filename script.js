@@ -38,7 +38,7 @@ raffleButton.addEventListener("click", (e) => {
   numberGenerate.appendChild(lottie);
   number.style.display = "none";
   const confetesNode = document.getElementById("confetes");
-  setTimeout(function () {
+  setTimeout(async function () {
     const lottie = document.getElementById("lottie");
     var numbersRaffle = [
       localStorage.getItem("numbersRaffle") != null
@@ -46,7 +46,7 @@ raffleButton.addEventListener("click", (e) => {
         : 0,
     ];
     lottie.remove();
-    var numberRaffle = generateRandom(numbersRaffle);
+    var numberRaffle = await generateRandom(numbersRaffle);
     number.innerText = numberRaffle;
     numbersRaffle.push(numberRaffle);
     numbersRaffleViewer.innerText =
@@ -64,11 +64,31 @@ raffleButton.addEventListener("click", (e) => {
   confetesNode.remove();
 });
 
-function generateRandom(exceptList) {
-  var numbersRaffle = JSON.parse("[" + exceptList.toString() + "]");
-  var numberRaffle = Math.floor(Math.random() * 4000) + 1;
-  while (numbersRaffle.includes(numberRaffle)) {
-    numberRaffle = Math.floor(Math.random() * 4000) + 1;
-  }
-  return numberRaffle;
+async function generateRandom(exceptList) {
+  let numberGenerated;
+
+  // Sortear com base numa lista de números 
+
+  await fetch('./numbers.json')
+    .then(response => response.json())
+    .then(data => {
+      var numbersRaffle = JSON.parse("[" + exceptList.toString() + "]");
+      var numberRaffle = Math.floor(Math.random() * data.length) + 1;
+      while (numbersRaffle.includes(numberRaffle)) {
+        numberRaffle = Math.floor(Math.random() * data.length) + 1;
+      }
+
+      numberGenerated = data[numberRaffle];
+    })
+    .catch(error => {
+      alert("Erro ao carregar os números");
+    });
+
+
+  // var numbersRaffle = JSON.parse("[" + exceptList.toString() + "]");
+  // var numberRaffle = Math.floor(Math.random() * 4000) + 1;
+  // while (numbersRaffle.includes(numberRaffle)) {
+  //   numberRaffle = Math.floor(Math.random() * 4000) + 1;
+  // }
+  return numberGenerated;
 }
